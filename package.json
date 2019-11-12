@@ -1,0 +1,44 @@
+{
+  "name": "@rokkit.ts/core",
+  "version": "0.1.0",
+  "description": "Core module of Rokkit.ts, provides you the capabilities to create web server",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rokkit.ts",
+    "core",
+    "module",
+    "web",
+    "restful",
+    "service",
+    "microservice"
+  ],
+  "author": "Jann Deterling",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.5",
+    "chai": "^4.2.0",
+    "husky": "^3.0.5",
+    "mocha": "^6.2.0",
+    "mocha-typescript": "^1.1.17",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "@rokkit.ts/dependency-injection": "^0.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
