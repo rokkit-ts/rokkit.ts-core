@@ -1,0 +1,10 @@
+[
+  {
+    "moduleName": "@rokkit.ts/web",
+    "mainClass": "WebStarter"
+  },
+  {
+    "moduleName": "@rokkit.ts/kafka",
+    "mainClass": "KafkaStarter"
+  }
+]
