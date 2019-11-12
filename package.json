@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "build": "tsc --build tsconfig.json"
   },
   "keywords": [
     "rokkit.ts",
@@ -20,6 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.3",
+    "@types/fs-extra": "^8.0.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.5",
     "chai": "^4.2.0",
@@ -34,7 +36,8 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
-    "@rokkit.ts/dependency-injection": "^0.2.1"
+    "@rokkit.ts/dependency-injection": "^0.2.1",
+    "fs-extra": "^8.1.0"
   },
   "husky": {
     "hooks": {
