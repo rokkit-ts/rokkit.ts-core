@@ -1,4 +1,4 @@
-import { RokkitRunner } from "./starter/rokkitStarter";
+import { RokkitRunner } from "./rokkitStarter";
 
 @RokkitRunner("")
 export class RokkitStarterSpec {
