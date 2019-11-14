@@ -1,13 +1,8 @@
 import { DependencyInjectionContext } from "@rokkit.ts/dependency-injection";
+import { rokkitModules } from "../resource/rokkit-module-declarations";
 import { AbstractModule } from "./abstractModule";
 import { ModuleLoader } from "./moduleLoader";
 import { PackageScanner } from "./packageScanner";
-
-const rokkitModules: {
-  moduleName: string;
-  mainClass: string;
-  // tslint:disable-next-line:no-var-requires
-}[] = require("/resource/rokkit-module-starter.json");
 
 export class RokkitModuleStarter {
   private moduleReferences: AbstractModule[];
@@ -16,9 +11,7 @@ export class RokkitModuleStarter {
     this.moduleReferences = [];
   }
 
-  private async loadRokkitModules(
-    pathToUserPackageJson: string
-  ): Promise<void> {
+  public async loadRokkitModules(pathToUserPackageJson: string): Promise<void> {
     const packageScanner = new PackageScanner(pathToUserPackageJson);
     const moduleLoader = new ModuleLoader();
 
