@@ -7,7 +7,7 @@ const rokkitModules: {
   moduleName: string;
   mainClass: string;
   // tslint:disable-next-line:no-var-requires
-}[] = require("/resource/rokkit-modules.json");
+}[] = require("/resource/rokkit-module-starter.json");
 
 export class RokkitModuleStarter {
   private moduleReferences: AbstractModule[];
