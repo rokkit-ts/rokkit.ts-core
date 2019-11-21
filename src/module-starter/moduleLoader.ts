@@ -1,11 +1,17 @@
-import { AbstractModule } from "./abstractModule";
 import * as path from "path";
+import { AbstractModule } from "./abstractModule";
 
 export class ModuleLoader {
-  public load(moduleName: string, mainClassName: string): AbstractModule {
+  public async load(
+    moduleName: string,
+    mainClassName: string
+  ): Promise<AbstractModule> {
     const modulePath: string = path.resolve(`./node_modules/${moduleName}`);
-    const loadedModule = require(modulePath);
-    return new loadedModule[mainClassName]();
+    const loadedModule = await import(modulePath);
+    if (loadedModule) {
+      return Promise.resolve(new loadedModule[mainClassName]());
+    }
+    return Promise.reject();
   }
 
   public static filterNotUndefinedModules(

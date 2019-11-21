@@ -1,4 +1,3 @@
-import { DependencyInjectionContext } from "@rokkit.ts/dependency-injection";
 import { rokkitModules } from "../resource/rokkit-module-declarations";
 import { AbstractModule } from "./abstractModule";
 import { ModuleLoader } from "./moduleLoader";
@@ -16,7 +15,7 @@ export class RokkitModuleStarter {
     const moduleLoader = new ModuleLoader();
 
     const loadedModules: (AbstractModule | undefined)[] = await Promise.all(
-      rokkitModules.map(async rokkitModule => {
+      rokkitModules.map(rokkitModule => {
         if (packageScanner.isPackageInstalled(rokkitModule.moduleName)) {
           return moduleLoader.load(
             rokkitModule.moduleName,
@@ -44,12 +43,11 @@ export class RokkitModuleStarter {
   }
 
   private async injectDependencies(
-    dependecyInjectionContext: DependencyInjectionContext
+    instanceMap: Map<string, any>
   ): Promise<void> {
     await Promise.all(
       this.moduleReferences.map(
-        async module =>
-          await module.injectDependencies(dependecyInjectionContext)
+        async module => await module.injectDependencies(instanceMap)
       )
     );
     return Promise.resolve();
