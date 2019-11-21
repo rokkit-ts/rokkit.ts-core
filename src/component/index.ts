@@ -1,4 +1,7 @@
-import { Injectable } from "@rokkit.ts/dependency-injection";
-export const Component = Injectable;
-export const Service = Injectable;
-export { Inject } from "@rokkit.ts/dependency-injection";
+/**
+ * @module
+ * @description
+ * Entry point from which you should import the Rokkit.ts component APIs.
+ */
+
+export * from "./componentDecorator";
