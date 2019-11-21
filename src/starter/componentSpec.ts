@@ -1,5 +1,5 @@
 import { Inject } from "@rokkit.ts/dependency-injection";
-import { Component } from "../components";
+import { Component } from "../component";
 
 @Component()
 export class ComponentSpec {
