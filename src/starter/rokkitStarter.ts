@@ -1,16 +1,26 @@
+import { ComponentInitializer } from "../components/componentInitializer";
+import { ComponentScanner } from "../components/componentScanner";
 import { RokkitModuleStarter } from "../module-starter";
 
 let rokkitStarter: RokkitStarter;
 
+const CONTEXT_NAME = "ROKKIT_MAIN_CONTEXT";
+
 class RokkitStarter {
   private readonly moduleStarter: RokkitModuleStarter;
+  private readonly componentInitializer: ComponentInitializer;
+  private readonly componentScanner: ComponentScanner;
 
   constructor() {
     this.moduleStarter = new RokkitModuleStarter();
+    this.componentInitializer = new ComponentInitializer();
+    this.componentScanner = new ComponentScanner();
   }
 
   public async runStartProcedure(): Promise<void> {
     await this.moduleStarter.loadRokkitModules("./package.json");
+    await this.componentScanner.importUserComponents();
+    await this.componentInitializer.initializeComponents(CONTEXT_NAME);
   }
 }
 
