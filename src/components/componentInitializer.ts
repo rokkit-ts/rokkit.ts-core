@@ -1,8 +1,8 @@
-import dependencyInjectionAssembler from "@rokkit.ts/dependency-injection/lib/dependency-injection-assembler/dependencyInjectionAssembler";
 import {
   DependencyInjectionContext,
   Injector
 } from "@rokkit.ts/dependency-injection";
+import dependencyInjectionAssembler from "@rokkit.ts/dependency-injection/lib/dependency-injection-assembler/dependencyInjectionAssembler";
 
 export class ComponentInitializer {
   private readonly components: Map<string, any>;
@@ -11,12 +11,16 @@ export class ComponentInitializer {
     this.components = new Map<string, any>();
   }
 
-  public initializeComponents(contextName?: string): Map<string, any> {
+  public async initializeComponents(
+    contextName?: string
+  ): Promise<Map<string, any>> {
     const depContext = this.getDependencyContext(contextName);
-    depContext.getAllInjectors().forEach(injector => {
-      this.initializeComponentFromInjector(injector);
-    });
-    return this.components;
+    await Promise.all(
+      depContext.getAllInjectors().map(injector => {
+        this.initializeComponentFromInjector(injector);
+      })
+    );
+    return Promise.resolve(this.components);
   }
 
   public initializeComponent(
@@ -31,6 +35,14 @@ export class ComponentInitializer {
       return undefined;
     }
     return this.initializeComponentFromInjector(injector);
+  }
+
+  public getComponents(): Map<string, any> {
+    return this.components;
+  }
+
+  public getComponent(componentName: string): any | undefined {
+    return this.components.get(componentName);
   }
 
   private initializeComponentFromInjector<T extends object>(
