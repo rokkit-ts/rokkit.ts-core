@@ -1,6 +1,5 @@
-import { ComponentInitializer } from "../user-component/componentInitializer";
-import { ComponentScanner } from "../user-component/componentScanner";
 import { RokkitModuleStarter } from "../module-starter";
+import { ComponentInitializer, ComponentScanner } from "../user-component";
 
 let rokkitStarter: RokkitStarter;
 
