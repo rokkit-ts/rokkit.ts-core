@@ -1,4 +1,4 @@
-import { rokkitModules } from "../resource/rokkit-module-declarations";
+import { rokkitModules } from "../resource/rokkitModuleDeclarations";
 import { AbstractModule } from "./abstractModule";
 import { ModuleLoader } from "./moduleLoader";
 import { PackageScanner } from "./packageScanner";
