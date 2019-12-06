@@ -1,21 +1,22 @@
 import * as fs from "fs-extra";
 import * as path from "path";
 
+// TODO: use a normal map instead of a building a new type for this.
 interface PackageDependencies {
   [moduleName: string]: string;
 }
 
+/**
+ * @class PackageScanner
+ * This class scans a package.json to analyse its dependencies.
+ */
 export class PackageScanner {
   private readonly packageDependencies: PackageDependencies;
 
-  public constructor(pathToUserPackageJson?: string) {
+  constructor(pathToUserPackageJson?: string) {
     this.packageDependencies = PackageScanner.scanPackagesOnPackageJson(
       pathToUserPackageJson || "./package.json"
     );
-  }
-
-  public isPackageInstalled(packageName: string): boolean {
-    return this.packageDependencies[packageName] !== undefined;
   }
 
   private static scanPackagesOnPackageJson(
@@ -25,5 +26,15 @@ export class PackageScanner {
     const fileData = fs.readFileSync(clearPath);
     const packageJsonData = JSON.parse(fileData.toString());
     return packageJsonData.dependencies ? packageJsonData.dependencies : {};
+  }
+
+  /**
+   * @function isPackageInstalled
+   * @param packageName
+   * @returns boolean
+   * Checks if a specific package is present on the package.json dependencies.
+   */
+  public isPackageInstalled(packageName: string): boolean {
+    return this.packageDependencies[packageName] !== undefined;
   }
 }
