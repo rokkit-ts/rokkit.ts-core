@@ -1,5 +1,5 @@
+import { AbstractModule } from "@rokkit.ts/abstract-module";
 import * as path from "path";
-import { AbstractModule } from "./abstractModule";
 
 /**
  * @class ModuleLoader
