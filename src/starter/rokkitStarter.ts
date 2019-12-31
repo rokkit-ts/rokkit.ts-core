@@ -1,4 +1,8 @@
-import { RokkitModuleStarter } from "../module-starter";
+import {
+  ModuleLoader,
+  PackageScanner,
+  RokkitModuleStarter
+} from "../module-starter";
 import { ComponentInitializer, ComponentScanner } from "../user-component";
 
 /**
@@ -18,7 +22,10 @@ class RokkitStarter {
   private readonly componentScanner: ComponentScanner;
 
   constructor() {
-    this.moduleStarter = new RokkitModuleStarter();
+    this.moduleStarter = new RokkitModuleStarter(
+      new PackageScanner("./package-json"),
+      new ModuleLoader()
+    );
     this.componentInitializer = new ComponentInitializer();
     this.componentScanner = new ComponentScanner();
   }
@@ -30,7 +37,7 @@ class RokkitStarter {
    * Which include scanning for user components, rokkit.ts modules, and initializing both of them.
    */
   public async runStartProcedure(): Promise<void> {
-    await this.moduleStarter.loadRokkitModules("./package.json");
+    await this.moduleStarter.loadRokkitModules();
     await this.componentScanner.importUserComponents();
     await this.componentInitializer.initializeComponents();
   }

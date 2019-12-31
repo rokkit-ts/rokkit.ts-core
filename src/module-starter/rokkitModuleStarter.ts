@@ -1,5 +1,5 @@
+import { AbstractModule } from "@rokkit.ts/abstract-module";
 import { rokkitModules } from "../resource/rokkitModuleDeclarations";
-import { AbstractModule } from "./abstractModule";
 import { ModuleLoader } from "./moduleLoader";
 import { PackageScanner } from "./packageScanner";
 
@@ -11,26 +11,25 @@ import { PackageScanner } from "./packageScanner";
 export class RokkitModuleStarter {
   private moduleReferences: AbstractModule[];
 
-  public constructor() {
+  public constructor(
+    private readonly packageScanner: PackageScanner,
+    private readonly moduleLoader: ModuleLoader
+  ) {
     this.moduleReferences = [];
   }
 
   /**
    * @function loadRokkitModules
-   * @param pathToUserPackageJson
    * @returns Promise<void>
-   * This function provides the functionallity to scan and load the user's package.json.
+   * This function provides the functionality to scan and load the user's package.json.
    * Each module will be found based on the information provided in the rokkitModuleDeclaration file.
    * After scanning for potential modules, found modules will be imported.
    */
-  public async loadRokkitModules(pathToUserPackageJson: string): Promise<void> {
-    const packageScanner = new PackageScanner(pathToUserPackageJson);
-    const moduleLoader = new ModuleLoader();
-
+  public async loadRokkitModules(): Promise<void> {
     const loadedModules: (AbstractModule | undefined)[] = await Promise.all(
       rokkitModules.map(rokkitModule => {
-        if (packageScanner.isPackageInstalled(rokkitModule.moduleName)) {
-          return moduleLoader.load(
+        if (this.packageScanner.isPackageInstalled(rokkitModule.moduleName)) {
+          return this.moduleLoader.load(
             rokkitModule.moduleName,
             rokkitModule.mainClass
           );
@@ -46,22 +45,7 @@ export class RokkitModuleStarter {
     return Promise.resolve();
   }
 
-  // TODO: Replace this fucntion based on the actual implementation of the abstract module
-  /**
-   * @function initializeRokkitModules
-   * @param configuration
-   * @returns Promise<void>
-   */
-  public async initializeRokkitModules(configuration: any): Promise<void> {
-    await Promise.all(
-      this.moduleReferences.map(
-        async module => await module.initializeModule(configuration)
-      )
-    );
-    return Promise.resolve();
-  }
-
-  // TODO: Replace this fucntion based on the actual implementation of the abstract module
+  // TODO: Replace this function based on the actual implementation of the abstract module
   /**
    * @function injectDependencies
    * @param instanceMap
