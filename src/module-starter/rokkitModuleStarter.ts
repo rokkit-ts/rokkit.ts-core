@@ -1,5 +1,5 @@
 import { AbstractModule } from "@rokkit.ts/abstract-module";
-import { rokkitModules } from "../resource/rokkitModuleDeclarations";
+import { rokkitModules } from "../resources/rokkitModuleDeclarations";
 import { ModuleLoader } from "./moduleLoader";
 import { PackageScanner } from "./packageScanner";
 
