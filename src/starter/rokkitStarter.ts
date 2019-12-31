@@ -23,8 +23,7 @@ class RokkitStarter {
 
   constructor() {
     this.moduleStarter = new RokkitModuleStarter(
-      new PackageScanner("./package-json"),
-      new ModuleLoader()
+      new PackageScanner("./package-json")
     );
     this.componentInitializer = new ComponentInitializer();
     this.componentScanner = new ComponentScanner();

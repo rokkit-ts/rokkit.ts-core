@@ -11,11 +11,12 @@ import { PackageScanner } from "./packageScanner";
 export class RokkitModuleStarter {
   private moduleReferences: AbstractModule[];
 
-  public constructor(
-    private readonly packageScanner: PackageScanner,
-    private readonly moduleLoader: ModuleLoader
-  ) {
+  public constructor(private readonly packageScanner: PackageScanner) {
     this.moduleReferences = [];
+  }
+
+  public get ModuleReferences(): AbstractModule[] {
+    return this.moduleReferences;
   }
 
   /**
@@ -29,7 +30,7 @@ export class RokkitModuleStarter {
     const loadedModules: (AbstractModule | undefined)[] = await Promise.all(
       rokkitModules.map(rokkitModule => {
         if (this.packageScanner.isPackageInstalled(rokkitModule.moduleName)) {
-          return this.moduleLoader.load(
+          return ModuleLoader.load(
             rokkitModule.moduleName,
             rokkitModule.mainClass
           );

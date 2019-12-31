@@ -14,12 +14,12 @@ export class PackageScanner {
   private readonly packageDependencies: PackageDependencies;
 
   constructor(pathToUserPackageJson?: string) {
-    this.packageDependencies = PackageScanner.scanPackagesOnPackageJson(
+    this.packageDependencies = PackageScanner.scanPackageJson(
       pathToUserPackageJson || "./package.json"
     );
   }
 
-  private static scanPackagesOnPackageJson(
+  private static scanPackageJson(
     pathToUserPackageJson: string
   ): PackageDependencies {
     const clearPath = path.resolve(pathToUserPackageJson);

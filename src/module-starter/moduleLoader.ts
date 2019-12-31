@@ -25,15 +25,20 @@ export class ModuleLoader {
    * Imports and creates an instance for the provided module infroantion.
    * Returns the created instance of the module.
    */
-  public async load(
+  public static async load(
     moduleName: string,
     mainClassName: string
-  ): Promise<AbstractModule> {
+  ): Promise<AbstractModule | undefined> {
     const modulePath: string = path.resolve(`./node_modules/${moduleName}`);
-    const loadedModule = await import(modulePath);
-    if (loadedModule) {
-      return Promise.resolve(new loadedModule[mainClassName]());
+    try {
+      const loadedModule = await import(modulePath);
+      if (loadedModule) {
+        return Promise.resolve(new loadedModule[mainClassName]());
+      } else {
+        return Promise.resolve(undefined);
+      }
+    } catch (error) {
+      return Promise.resolve(undefined);
     }
-    return Promise.reject();
   }
 }
