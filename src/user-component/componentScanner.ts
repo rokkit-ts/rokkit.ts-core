@@ -13,20 +13,25 @@ export class ComponentScanner {
    * This function executes the import for the whole project.
    * The user components are retrieved by the autClassDeclaration singleton of the  dependency-injection module.
    */
-  public async importUserComponents(): Promise<void> {
-    await Promise.all(
+  public static async importUserComponents(): Promise<(string | undefined)[]> {
+    return Promise.all(
       autoClassDeclaration.ClassDeclarations.map(declaration =>
-        this.importUserComponent(declaration.filePath)
+        ComponentScanner.importUserComponent(declaration.filePath)
       )
     );
-    return Promise.resolve();
   }
 
-  private async importUserComponent(componentFilePath: string): Promise<void> {
-    const module = await import(path.resolve(componentFilePath));
-    if (!module) {
-      return Promise.reject();
+  private static async importUserComponent(
+    componentFilePath: string
+  ): Promise<string | undefined> {
+    try {
+      const module = await import(path.resolve(componentFilePath));
+      if (!module) {
+        return Promise.resolve(undefined);
+      }
+      return Promise.resolve(componentFilePath);
+    } catch (error) {
+      return Promise.resolve(undefined);
     }
-    return Promise.resolve();
   }
 }
