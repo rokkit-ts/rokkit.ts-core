@@ -37,8 +37,8 @@ class RokkitStarter {
    */
   public async runStartProcedure(): Promise<void> {
     await this.moduleStarter.loadRokkitModules();
-    await this.componentScanner.importUserComponents();
-    await this.componentInitializer.initializeComponents();
+    const initializedComponents = await this.componentInitializer.initializeComponents();
+    await this.moduleStarter.injectDependencies(initializedComponents);
   }
 }
 
