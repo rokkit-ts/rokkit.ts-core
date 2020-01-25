@@ -15,14 +15,12 @@ let rokkitStarter: RokkitStarter;
 class RokkitStarter {
   private readonly moduleStarter: RokkitModuleStarter;
   private readonly componentInitializer: ComponentInitializer;
-  private readonly componentScanner: ComponentScanner;
 
   constructor() {
     this.moduleStarter = new RokkitModuleStarter(
       new PackageScanner("./package.json")
     );
     this.componentInitializer = new ComponentInitializer();
-    this.componentScanner = new ComponentScanner();
   }
 
   /**
@@ -33,6 +31,7 @@ class RokkitStarter {
    */
   public async runStartProcedure(): Promise<void> {
     await this.moduleStarter.loadRokkitModules();
+    await ComponentScanner.importUserComponents();
     const initializedComponents = await this.componentInitializer.initializeComponents();
     await this.moduleStarter.injectDependencies(initializedComponents);
     // TODO: add configurations when available!
