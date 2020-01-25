@@ -35,6 +35,8 @@ class RokkitStarter {
     await this.moduleStarter.loadRokkitModules();
     const initializedComponents = await this.componentInitializer.initializeComponents();
     await this.moduleStarter.injectDependencies(initializedComponents);
+    // TODO: add configurations when available!
+    await this.moduleStarter.runModules(undefined);
   }
 }
 

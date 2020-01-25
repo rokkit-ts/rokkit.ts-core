@@ -46,8 +46,8 @@ export class RokkitModuleStarter {
     return Promise.resolve();
   }
 
-  // TODO: Replace this function based on the actual implementation of the abstract module
   /**
+   * Inject dependencies into all found modules. These information are used to work with these classes within each module.
    * @function injectDependencies
    * @param instanceMap
    * @returns Promise<void>
@@ -58,6 +58,21 @@ export class RokkitModuleStarter {
     await Promise.all(
       this.moduleReferences.map(
         async module => await module.injectDependencies(instanceMap)
+      )
+    );
+    return Promise.resolve();
+  }
+
+  /**
+   * Runs all found modules for rokkit.ts. The runModule method actually starts the procedure of a module
+   * @function runModules
+   * @param configuration
+   * @returns Promise<void>
+   */
+  public async runModules(configuration: any): Promise<void> {
+    await Promise.all(
+      this.moduleReferences.map(
+        async module => await module.runModule(configuration)
       )
     );
     return Promise.resolve();
