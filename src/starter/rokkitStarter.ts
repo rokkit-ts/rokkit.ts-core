@@ -1,8 +1,4 @@
-import {
-  ModuleLoader,
-  PackageScanner,
-  RokkitModuleStarter
-} from "../module-starter";
+import { PackageScanner, RokkitModuleStarter } from "../module-starter";
 import { ComponentInitializer, ComponentScanner } from "../user-component";
 
 /**
@@ -23,7 +19,7 @@ class RokkitStarter {
 
   constructor() {
     this.moduleStarter = new RokkitModuleStarter(
-      new PackageScanner("./package-json")
+      new PackageScanner("./package.json")
     );
     this.componentInitializer = new ComponentInitializer();
     this.componentScanner = new ComponentScanner();
