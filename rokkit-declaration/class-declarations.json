@@ -1,0 +1,156 @@
+[
+  {
+    "classInformation": {
+      "className": "ModuleLoader",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/module-starter/moduleLoader.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/module-starter/moduleLoader.js"
+  },
+  {
+    "classInformation": {
+      "className": "PackageScanner",
+      "constructors": [
+        {
+          "parameters": [
+            {
+              "name": "pathToUserPackageJson",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/module-starter/packageScanner.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/module-starter/packageScanner.js"
+  },
+  {
+    "classInformation": {
+      "className": "RokkitModuleStarter",
+      "constructors": [
+        {
+          "parameters": [
+            {
+              "name": "packageScanner",
+              "type": "PackageScanner"
+            }
+          ]
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/module-starter/rokkitModuleStarter.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/module-starter/rokkitModuleStarter.js"
+  },
+  {
+    "classInformation": {
+      "className": "ComponentInitializer",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/user-component/componentInitializer.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/user-component/componentInitializer.js"
+  },
+  {
+    "classInformation": {
+      "className": "ComponentScanner",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/user-component/componentScanner.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/user-component/componentScanner.js"
+  },
+  {
+    "classInformation": {
+      "className": "RokkitStarter",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/starter/rokkitStarter.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/starter/rokkitStarter.js"
+  },
+  {
+    "classInformation": {
+      "className": "ModuleLoaderSpec",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/module-starter/moduleLoader.spec.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/module-starter/moduleLoader.spec.js"
+  },
+  {
+    "classInformation": {
+      "className": "PackageScannerSpec",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/module-starter/packageScanner.spec.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/module-starter/packageScanner.spec.js"
+  },
+  {
+    "classInformation": {
+      "className": "RokkitModuleStarterSpec",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/module-starter/rokkitModuleStarter.spec.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/module-starter/rokkitModuleStarter.spec.js"
+  },
+  {
+    "classInformation": {
+      "className": "ComponentInitializerSpec",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/user-component/componentInitializer.spec.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/user-component/componentInitializer.spec.js"
+  },
+  {
+    "classInformation": {
+      "className": "TestComponent",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/user-component/componentInitializer.spec.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/user-component/componentInitializer.spec.js"
+  },
+  {
+    "classInformation": {
+      "className": "ComponentScannerSpec",
+      "constructors": [
+        {
+          "parameters": []
+        }
+      ]
+    },
+    "sourceFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/src/user-component/componentScanner.spec.ts",
+    "compiledFilePath": "/Users/janndeterling/Documents/projects/rokkit.ts/rokkit.ts-core/build/user-component/componentScanner.spec.js"
+  }
+]
