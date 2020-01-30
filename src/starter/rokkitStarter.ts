@@ -1,3 +1,4 @@
+import { performance } from "perf_hooks";
 import { PackageScanner, RokkitModuleStarter } from "../module-starter";
 import { ComponentInitializer, ComponentScanner } from "../user-component";
 
@@ -45,11 +46,16 @@ class RokkitStarter {
  * This class will be automatically start the framework on running it.
  */
 export function RokkitRunner(rootDir: string) {
+  const timeStampStarted = performance.now();
   if (!rokkitStarter) {
     rokkitStarter = new RokkitStarter();
-    rokkitStarter
-      .runStartProcedure()
-      .then(resolved => console.log("Rokkit.ts started"));
+    rokkitStarter.runStartProcedure().then(() => {
+      console.log(
+        `Rokkit.ts started in: ${(performance.now() - timeStampStarted).toFixed(
+          2
+        )}ms`
+      );
+    });
   }
   // tslint:disable-next-line:no-empty
   return (constructor: Function) => {};
