@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@rokkit.ts/abstract-module": "^0.1.8",
+    "@rokkit.ts/class-declaration-resolver": "^0.2.1",
     "@rokkit.ts/dependency-injection": "^0.3.2",
     "fs-extra": "^8.1.0",
     "yargs": "^15.1.0"

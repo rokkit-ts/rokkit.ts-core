@@ -6,12 +6,18 @@ import { run } from "./run";
 
 const options = yargs
   .usage("Usage: $0 <command> [options]")
-  .command("build", "Builds the application", args => {})
+  .command("build", "Builds the application")
   .example("$0 build", "Builds the application, so that it is production ready")
   .command(
     ["run", "start", "up"],
-    "Starts the application in development mode",
-    args => {}
+    "Starts the application, default is the development mode",
+    args => {
+      return args.option("p", {
+        alias: ["prod", "production"],
+        description: "Run the application in production mode",
+        type: "boolean"
+      });
+    }
   )
   .example("$0 run", "Starts the application in development mode")
   .command("init", "Initialize a new Rokkit.ts project", args => {
@@ -39,6 +45,7 @@ switch (options._[0]) {
   case "up":
   case "run":
   case "start":
-    run();
+    const prod = options.prod as boolean;
+    run(prod);
     break;
 }
