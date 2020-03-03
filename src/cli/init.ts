@@ -27,7 +27,8 @@ const updatePackageJson = async (projectName: string) => {
   packageJson.repository = "enter repository here";
   packageJson.scripts = {
     build: "rokkit-cli build",
-    "run-dev": "rokkit-cli run",
+    start: "rokkit-cli run -p",
+    "start-dev": "rokkit-cli run",
     test: 'echo "Error: no test specified" && exit 1'
   };
 
