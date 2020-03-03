@@ -1,39 +1,17 @@
-import { ChildProcess, spawn } from "child_process";
+// tslint:disable: no-console
 import * as fs from "fs-extra";
-
-const onExit = (childProcess: ChildProcess): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    childProcess.once("exit", (code: number, signal: string) => {
-      if (code === 0) {
-        resolve(undefined);
-      } else {
-        reject(new Error("Exit with error code: " + code));
-      }
-    });
-    childProcess.once("error", (err: Error) => {
-      reject(err);
-    });
-  });
-};
-
-const execFromDir = async (projectName: string, command: string) => {
-  const child = spawn("bash");
-  child.stdout.on("data", data => console.log(data.toString()));
-  child.stderr.on("data", data => console.error(data.toString()));
-  child.stdin.end(`(cd ${projectName} && ${command})`);
-  await onExit(child);
-};
+import { executeFromContext } from "./utils";
 
 const installDependencies = async (projectName: string) => {
   console.log("Installing dependencies:");
   console.log("@rokkit.ts core");
-  await execFromDir(projectName, `npm i --save @rokkit.ts/core`);
+  await executeFromContext(projectName, `npm i --save @rokkit.ts/core`);
   console.log("@rokkit.ts web");
-  await execFromDir(projectName, `npm i --save @rokkit.ts/web`);
+  await executeFromContext(projectName, `npm i --save @rokkit.ts/web`);
   console.log("typeScript");
-  await execFromDir(projectName, `npm i --save-dev typescript`);
+  await executeFromContext(projectName, `npm i --save-dev typescript`);
   console.log("ts-node");
-  await execFromDir(projectName, `npm i --save-dev ts-node`);
+  await executeFromContext(projectName, `npm i --save-dev ts-node`);
 };
 
 const updatePackageJson = async (projectName: string) => {
@@ -66,7 +44,7 @@ export const init = async (projectName: string) => {
     `Creating a new rokkit.ts project for the name --> ${projectName}`
   );
   fs.mkdirSync(`${projectName}`);
-  await execFromDir(projectName, `npm init -y`);
+  await executeFromContext(projectName, `npm init -y`);
   await updatePackageJson(projectName);
   await installDependencies(projectName);
   copyProjectFiles(projectName);
