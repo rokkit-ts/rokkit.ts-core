@@ -24,24 +24,26 @@
     "@types/fs-extra": "^8.0.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.5",
+    "@types/sinon": "^7.5.1",
+    "@types/yargs": "^15.0.4",
     "chai": "^4.2.0",
     "husky": "^3.0.5",
     "mocha": "^6.2.0",
     "mocha-typescript": "^1.1.17",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
+    "sinon": "^8.0.1",
     "ts-node": "^8.5.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.6.3",
-    "sinon": "^8.0.1",
-    "@types/sinon": "^7.5.1"
+    "typescript": "^3.6.3"
   },
   "dependencies": {
     "@rokkit.ts/abstract-module": "^0.1.8",
     "@rokkit.ts/dependency-injection": "^0.3.2",
-    "fs-extra": "^8.1.0"
+    "fs-extra": "^8.1.0",
+    "yargs": "^15.1.0"
   },
   "husky": {
     "hooks": {
@@ -50,5 +52,17 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rokkit-ts/rokkit.ts-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rokkit-ts/rokkit.ts-core/issues"
+  },
+  "homepage": "https://github.com/rokkit-ts/rokkit.ts-core#readme"
 }
