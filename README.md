@@ -39,15 +39,16 @@ npx rokkit-cli build
 ```
 
 Run your app in development or production mode with the cli.
+You have to specify the entrypoint in order to start the app. Therefore use the parameter `-e` followed by the path to your root class.
 
 ```bash
 # Development mode
 npm run start-dev # Projects created with rokkit-cli
-npx rokkit-cli start
+npx rokkit-cli start -e ./src/app.ts
 
 # Production mode
 npm start # Projects created with rokkit-cli
-npx rokkit-cli start -p
+npx rokkit-cli start -e ./build/app.js -p
 ```
 
 ### [Getting Started](https://rokkit.dev/#getting-started)
@@ -60,7 +61,8 @@ The core module expose only two major functionalities by now:
 
 - The entrypoint to start the framework
 - Dependency Injection utilities
-  Both will be explained in the following.
+
+Both will be explained in the following.
 
 ### The Entrypoint
 

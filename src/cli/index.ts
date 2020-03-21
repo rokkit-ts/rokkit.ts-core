@@ -12,11 +12,18 @@ const options = yargs
     ["run", "start", "up"],
     "Starts the application, default is the development mode",
     args => {
-      return args.option("p", {
-        alias: ["prod", "production"],
-        description: "Run the application in production mode",
-        type: "boolean"
-      });
+      return args
+        .option("e", {
+          alias: ["entrypoint"],
+          description: "Path to root class of the project",
+          required: true,
+          type: "string"
+        })
+        .option("p", {
+          alias: ["prod", "production"],
+          description: "Run the application in production mode",
+          type: "boolean"
+        });
     }
   )
   .example("$0 run", "Starts the application in development mode")
@@ -46,6 +53,7 @@ switch (options._[0]) {
   case "run":
   case "start":
     const prod = options.prod as boolean;
-    run(prod);
+    const entrypoint = options.entrypoint as string;
+    run(prod, entrypoint);
     break;
 }
