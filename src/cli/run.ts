@@ -4,7 +4,7 @@ import { execute } from "./utils";
 export const run = async (production: boolean, rootClass?: string) => {
   console.log("Starting the application");
   if (production) {
-    await execute(`node ${rootClass || "./build/app.js"}`);
+    await execute(`NODE_ENV=production node ${rootClass || "./build/app.js"}`);
   } else {
     await execute(`ts-node ${rootClass || "./src/app.ts"}`);
   }
