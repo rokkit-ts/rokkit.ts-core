@@ -1,5 +1,5 @@
-import autoClassDeclaration from "@rokkit.ts/dependency-injection/lib/automatic-class-declaration/autoClassDeclaration";
-import * as path from "path";
+import autoClassDeclaration from '@rokkit.ts/dependency-injection/lib/automatic-class-declaration/autoClassDeclaration'
+import * as path from 'path'
 
 /**
  * @Class ComponentScanner
@@ -22,20 +22,20 @@ export class ComponentScanner {
             )
           : ComponentScanner.importUserComponent(declaration.sourceFilePath)
       )
-    );
+    )
   }
 
   private static async importUserComponent(
     componentFilePath: string
   ): Promise<string | undefined> {
     try {
-      const module = await import(path.resolve(componentFilePath));
+      const module = await import(path.resolve(componentFilePath))
       if (!module) {
-        return Promise.resolve(undefined);
+        return Promise.resolve(undefined)
       }
-      return Promise.resolve(componentFilePath);
+      return Promise.resolve(componentFilePath)
     } catch (error) {
-      return Promise.resolve(undefined);
+      return Promise.resolve(undefined)
     }
   }
 }
