@@ -1,7 +1,7 @@
-import { AbstractModule } from "@rokkit.ts/abstract-module";
-import { rokkitModules } from "../resources/rokkitModuleDeclarations";
-import { ModuleLoader } from "./moduleLoader";
-import { PackageScanner } from "./packageScanner";
+import { AbstractModule } from '@rokkit.ts/abstract-module'
+import { rokkitModules } from '../resources/rokkitModuleDeclarations'
+import { ModuleLoader } from './moduleLoader'
+import { PackageScanner } from './packageScanner'
 
 /**
  * @class RokkitModuleStarter
@@ -9,14 +9,14 @@ import { PackageScanner } from "./packageScanner";
  * It checks the provided package.json of the user and than load all found rokkit.ts modules.
  */
 export class RokkitModuleStarter {
-  private moduleReferences: AbstractModule[];
+  private moduleReferences: AbstractModule[]
 
   public constructor(private readonly packageScanner: PackageScanner) {
-    this.moduleReferences = [];
+    this.moduleReferences = []
   }
 
   public get ModuleReferences(): AbstractModule[] {
-    return this.moduleReferences;
+    return this.moduleReferences
   }
 
   /**
@@ -33,17 +33,17 @@ export class RokkitModuleStarter {
           return ModuleLoader.load(
             rokkitModule.moduleName,
             rokkitModule.mainClass
-          );
+          )
         } else {
-          return undefined;
+          return undefined
         }
       })
-    );
+    )
 
     this.moduleReferences.push(
       ...loadedModules.filter(ModuleLoader.filterNotUndefinedModules)
-    );
-    return Promise.resolve();
+    )
+    return Promise.resolve()
   }
 
   /**
@@ -59,8 +59,8 @@ export class RokkitModuleStarter {
       this.moduleReferences.map(
         async module => await module.injectDependencies(instanceMap)
       )
-    );
-    return Promise.resolve();
+    )
+    return Promise.resolve()
   }
 
   /**
@@ -74,7 +74,19 @@ export class RokkitModuleStarter {
       this.moduleReferences.map(
         async module => await module.runModule(configuration)
       )
-    );
-    return Promise.resolve();
+    )
+    return Promise.resolve()
+  }
+
+  /**
+   * ShutDown all found modules for rokkit.ts. The shutDown method actually stops all procedures of a module
+   * @function shutDownModules
+   * @returns Promise<void>
+   */
+  public async shutDownModules(): Promise<void> {
+    await Promise.all(
+      this.moduleReferences.map(async module => await module.shoutDownModule())
+    )
+    return Promise.resolve()
   }
 }

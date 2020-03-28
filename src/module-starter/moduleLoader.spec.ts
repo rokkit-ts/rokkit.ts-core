@@ -1,24 +1,25 @@
 // tslint:disable:no-unused-expression
 
-import { expect } from "chai";
-import { suite, test } from "mocha-typescript";
-import { ModuleLoader } from "./moduleLoader";
+import { ModuleLoader } from './moduleLoader'
 
-@suite
-export class ModuleLoaderSpec {
-  @test
-  public async shouldFindAndInitializeModule() {
-    const moduleClass = await ModuleLoader.load(
-      "@rokkit.ts/abstract-module",
-      "AbstractModule"
-    );
-    expect(moduleClass).is.not.undefined;
-    expect(moduleClass).is.not.null;
-  }
+describe('ModuleLoader', () => {
+  it('should load a module and a instance of the base class', async () => {
+    // given
+    const modulePath = '@rokkit.ts/abstract-module'
+    const baseClass = 'AbstractModule'
+    // when
+    const moduleClass = await ModuleLoader.load(modulePath, baseClass)
+    // then
+    expect(moduleClass).toBeDefined()
+  })
 
-  @test
-  public async shouldNotFindAndInitializeModule() {
-    const moduleClass = await ModuleLoader.load("@rokkit.ts/web", "WebStarter");
-    expect(moduleClass).is.undefined;
-  }
-}
+  it('should return undefined when module not found', async () => {
+    // given
+    const modulePath = '@rokkit.ts/some-new-module'
+    const baseClass = 'BaseClass'
+    // when
+    const moduleClass = await ModuleLoader.load(modulePath, baseClass)
+    // then
+    expect(moduleClass).not.toBeDefined()
+  })
+})
