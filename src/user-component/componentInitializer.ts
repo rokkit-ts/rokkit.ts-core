@@ -1,8 +1,8 @@
 import {
   DependencyInjectionContext,
   Injector
-} from "@rokkit.ts/dependency-injection";
-import dependencyInjectionAssembler from "@rokkit.ts/dependency-injection/lib/dependency-injection-assembler/dependencyInjectionAssembler";
+} from '@rokkit.ts/dependency-injection'
+import dependencyInjectionAssembler from '@rokkit.ts/dependency-injection/lib/dependency-injection-assembler/dependencyInjectionAssembler'
 
 /**
  * @class ComponentInitializer
@@ -11,10 +11,10 @@ import dependencyInjectionAssembler from "@rokkit.ts/dependency-injection/lib/de
  * The class will double check if there already is an instance before creating a new one.
  */
 export class ComponentInitializer {
-  private readonly components: Map<string, any>;
+  private readonly components: Map<string, any>
 
   constructor() {
-    this.components = new Map<string, any>();
+    this.components = new Map<string, any>()
   }
 
   /**
@@ -27,13 +27,13 @@ export class ComponentInitializer {
   public async initializeComponents(
     contextName?: string
   ): Promise<Map<string, any>> {
-    const depContext = this.getDependencyContext(contextName);
+    const depContext = this.getDependencyContext(contextName)
     await Promise.all(
       depContext.getAllInjectors().map(injector => {
-        this.initializeComponentFromInjector(injector);
+        this.initializeComponentFromInjector(injector)
       })
-    );
-    return Promise.resolve(this.components);
+    )
+    return Promise.resolve(this.components)
   }
 
   /**
@@ -50,12 +50,12 @@ export class ComponentInitializer {
     dependencyContext?: DependencyInjectionContext
   ): any {
     const depContext =
-      dependencyContext || this.getDependencyContext(contextName);
-    const injector = depContext.getInjector(componentName);
+      dependencyContext || this.getDependencyContext(contextName)
+    const injector = depContext.getInjector(componentName)
     if (!injector) {
-      return undefined;
+      return undefined
     }
-    return this.initializeComponentFromInjector(injector);
+    return this.initializeComponentFromInjector(injector)
   }
 
   /**
@@ -64,7 +64,7 @@ export class ComponentInitializer {
    * Returns the map of all components' instances
    */
   public getComponents(): Map<string, any> {
-    return this.components;
+    return this.components
   }
 
   /**
@@ -73,18 +73,18 @@ export class ComponentInitializer {
    * Returns a component instance based on the given componentName.
    */
   public getComponent(componentName: string): any | undefined {
-    return this.components.get(componentName);
+    return this.components.get(componentName)
   }
 
   private initializeComponentFromInjector<T extends object>(
     injector: Injector<T>
   ): any {
-    let component = this.components.get(injector.ClassName);
+    let component = this.components.get(injector.ClassName)
     if (!component) {
-      component = injector.createInstance();
-      this.components.set(injector.ClassName, component);
+      component = injector.createInstance()
+      this.components.set(injector.ClassName, component)
     }
-    return component;
+    return component
   }
 
   private getDependencyContext(
@@ -93,11 +93,11 @@ export class ComponentInitializer {
     if (contextName) {
       const nullableContext:
         | DependencyInjectionContext
-        | undefined = dependencyInjectionAssembler.retrieveContext(contextName);
+        | undefined = dependencyInjectionAssembler.retrieveContext(contextName)
       if (nullableContext) {
-        return nullableContext;
+        return nullableContext
       }
     }
-    return dependencyInjectionAssembler.retrieveDefaultContext();
+    return dependencyInjectionAssembler.retrieveDefaultContext()
   }
 }

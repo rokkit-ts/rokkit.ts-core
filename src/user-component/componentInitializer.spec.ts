@@ -1,49 +1,94 @@
-// tslint:disable:no-unused-expression
-import { Injectable } from "@rokkit.ts/dependency-injection";
-import { expect } from "chai";
-import { suite, test } from "mocha-typescript";
-import { ComponentInitializer } from "./componentInitializer";
+import { Injectable, Injector } from '@rokkit.ts/dependency-injection'
+import { ComponentInitializer } from './componentInitializer'
+import dependencyInjectionAssembler from '@rokkit.ts/dependency-injection/lib/dependency-injection-assembler/dependencyInjectionAssembler'
 
-@suite
-export class ComponentInitializerSpec {
-  private componentInitializer: ComponentInitializer | undefined;
+describe('ComponentInitializer', () => {
+  it('should initialize a component only by name and return the instance', () => {
+    // given
+    const injector = new Injector(Component, [
+      { index: 0, type: 'string', value: 'some data' }
+    ])
+    dependencyInjectionAssembler.registerInjector(injector)
+    const componentInitializer = new ComponentInitializer()
+    const componentName = 'Component'
+    const expectedComponent = new Component('some data')
+    // when
+    const actualComponent = componentInitializer.initializeComponent(
+      componentName
+    )
+    // then
+    expect(actualComponent).toBeDefined()
+    expect(actualComponent).toEqual(expectedComponent)
+  })
 
-  public before() {
-    this.componentInitializer = new ComponentInitializer();
-  }
+  it('should initialize a component and return the instance', () => {
+    // given
+    const injector = new Injector(Component, [
+      { index: 0, type: 'string', value: 'some data' }
+    ])
+    dependencyInjectionAssembler.createContext('sampleContext')
+    dependencyInjectionAssembler.registerInjector(injector, 'sampleContext')
+    const componentInitializer = new ComponentInitializer()
+    const componentName = 'Component'
+    const expectedComponent = new Component('some data')
+    // when
+    const actualComponent = componentInitializer.initializeComponent(
+      componentName,
+      'sampleContext'
+    )
+    // then
+    expect(actualComponent).toBeDefined()
+    expect(actualComponent).toEqual(expectedComponent)
+  })
 
-  @test
-  public async shouldInitializeAllComponents() {
-    const componentMap = await this.componentInitializer?.initializeComponents();
-    const storedComponents = this.componentInitializer?.getComponents();
+  it('should return undefined when there is is not component registered', () => {
+    // given
+    const componentInitializer = new ComponentInitializer()
+    const componentName = 'UndefiedComponent'
+    const expectedComponent = undefined
+    // when
+    const actualComponent = componentInitializer.initializeComponent(
+      componentName
+    )
+    // then
+    expect(actualComponent).not.toBeDefined()
+    expect(actualComponent).toEqual(expectedComponent)
+  })
 
-    expect(componentMap).is.not.undefined;
-    expect(componentMap).is.not.empty;
-    expect(componentMap?.get("TestComponent")).is.not.undefined;
-    expect(storedComponents).is.not.undefined;
-    expect(storedComponents).is.not.empty;
-    expect(storedComponents?.get("TestComponent")).is.not.undefined;
-  }
+  it('should initalize all component within a context', async () => {
+    // given
+    const componentInitializer = new ComponentInitializer()
+    const contextName = 'sampleContext'
+    // when
+    const components = await componentInitializer.initializeComponents(
+      contextName
+    )
+    // then
+    expect(components).toBeDefined()
+    expect(components.get('Component')).toBeDefined()
+  })
 
-  @test
-  public async shouldInitializeComponent() {
-    const component = await this.componentInitializer?.initializeComponent(
-      "TestComponent"
-    );
-    const storedComponent = this.componentInitializer?.getComponent(
-      "TestComponent"
-    );
+  it('should get Componenents from ComponentInitializer', async () => {
+    // given
+    const componentInitializer = new ComponentInitializer()
+    const contextName = 'sampleContext'
+    // when
+    const initComponents = await componentInitializer.initializeComponents(
+      contextName
+    )
+    const components = componentInitializer.getComponents()
 
-    expect(storedComponent).is.not.undefined;
-    expect(component).is.not.undefined;
-  }
-}
+    // then
+    expect(initComponents).toBeDefined()
+    expect(components).toBeDefined()
+    expect(components).toEqual(initComponents)
+  })
+})
 
-// tslint:disable-next-line:max-classes-per-file
-@Injectable()
-class TestComponent {
-  constructor() {
-    // tslint:disable-next-line:no-console
-    console.log("Test Component init");
+class Component {
+  private data: string
+
+  constructor(data: string) {
+    this.data = data
   }
 }
