@@ -12,7 +12,7 @@ jest.mock('@rokkit.ts/web', () => {
   }
 })
 
-jest.mock('./packageScanner', () => ({
+jest.mock('./PackageScanner', () => ({
   PackageScanner: jest.fn().mockImplementation(() => ({
     isPackageInstalled: jest.fn().mockReturnValue(true)
   }))
