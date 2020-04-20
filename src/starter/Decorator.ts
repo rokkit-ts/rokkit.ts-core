@@ -8,5 +8,5 @@ export function RokkitRunner<T extends new (...args: any[]) => {}>(
   } else {
     throw new Error(`Do not use @RokkitRunner more often then once.`)
   }
-  return {}
+  return class extends constructor {}
 }
