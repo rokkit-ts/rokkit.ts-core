@@ -1,6 +1,7 @@
 import { Module } from '../modules'
 import { PackageScanner, ModuleStarter } from '../modules/module-starter'
 import { ComponentScanner } from '../components'
+import { performance } from 'perf_hooks'
 
 class Starter {
   private modulesToUse = new Map<string, Module<any>>()
