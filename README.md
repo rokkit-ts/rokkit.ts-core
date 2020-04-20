@@ -66,15 +66,21 @@ Both will be explained in the following.
 
 ### The Entrypoint
 
-The entrypoint tells the framework to start. It is a simple decorator that needs to be annotated on a class. In order to work properly the decorator needs the path to your root source code folder. Rokkit.ts will scan this and all sub directories for components that are important for you and the framework.
-If there other modules of Rokkit.ts installed in your project there core will recognize and start them accordingly. Furthermore the core will also grant them access to information about user components.
-Your Entrypoint class should lokk like the following code block:
+The entrypoint to the framework is a simple class that would be used to configure and run the framework. Therefore Rokkit exposes a simple API to configure its modules.
+To configure a module you have two options. The first option would be to use the default configuration provided by Rokkit.ts. The second solution is to define your own configuration object. Rokkit exports there needed type definition that you would need to provide.
+
+The last step next to the configuration of the module would be to run the framework. you can simply call the method `run` at the end of the call!
 
 ```TypeScript
-import { RokkitRunner } from  "@rokkit.ts/core"
+import { RokkitRunner, Rokkit, RokkitModules } from  "@rokkit.ts/core"
 
-@RokkitRunner("./src")
+@RokkitRunner
 export class SampleApplication {
+  constructor{
+    Rokkit.useModule(RokkitModules.WEB)
+      .useDefaultConfiguration()
+      .run()
+  }
 }
 ```
 

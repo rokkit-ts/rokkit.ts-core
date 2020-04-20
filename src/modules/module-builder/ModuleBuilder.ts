@@ -1,7 +1,7 @@
-import { Rokkit } from './Rokkit'
+import { Rokkit } from '../../starter/Rokkit'
 import { RokkitServerOptions } from '@rokkit.ts/web'
-import { RokkitRunner } from './Rokkit'
-import { rokkitStarter } from './RokkitStarter'
+import { RokkitRunner } from '../../starter/Rokkit'
+import { starter } from '../../starter/Starter'
 
 export interface Module<T> {
   configuration: T
@@ -38,12 +38,12 @@ export class ModuleBuilder<T> {
 
   public useConfiguration(config: T): RokkitRunner {
     this.module.configuration = config
-    rokkitStarter.useModule(this.module)
+    starter.useModule(this.module)
     return Rokkit
   }
 
   public useDefaultConfiguration(): RokkitRunner {
-    rokkitStarter.useModule(this.module)
+    starter.useModule(this.module)
     return Rokkit
   }
 }

@@ -1,5 +1,5 @@
-import autoClassDeclaration from '@rokkit.ts/dependency-injection/lib/automatic-class-declaration/autoClassDeclaration'
 import * as path from 'path'
+import { TypeScannerSingleton } from '@rokkit.ts/dependency-injection'
 
 /**
  * @Class ComponentScanner
@@ -9,18 +9,14 @@ import * as path from 'path'
 export class ComponentScanner {
   /**
    * @function importUserComponents
-   * @returns Promise<void>
+   * @returns Promise<(string | undefined)[]>
    * This function executes the import for the whole project.
-   * The user components are retrieved by the autClassDeclaration singleton of the  dependency-injection module.
+   * The user components are retrieved by the TypeScanner singleton of the dependency-injection module.
    */
   public static async importUserComponents(): Promise<(string | undefined)[]> {
     return Promise.all(
-      autoClassDeclaration.ClassDeclarations.map(declaration =>
-        autoClassDeclaration.isProd
-          ? ComponentScanner.importUserComponent(
-              declaration.compiledFilePath as string
-            )
-          : ComponentScanner.importUserComponent(declaration.sourceFilePath)
+      TypeScannerSingleton.pathsOfUserComponents().map(componentPath =>
+        ComponentScanner.importUserComponent(componentPath)
       )
     )
   }
@@ -35,6 +31,9 @@ export class ComponentScanner {
       }
       return Promise.resolve(componentFilePath)
     } catch (error) {
+      // log all errors these are very important!
+      console.log(error)
+
       return Promise.resolve(undefined)
     }
   }

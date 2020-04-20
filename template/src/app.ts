@@ -1,4 +1,10 @@
-import { RokkitRunner } from "@rokkit.ts/core";
+import { Rokkit, RokkitModules, RokkitRunner } from '@rokkit.ts/core'
 
-@RokkitRunner("./src")
-export class App {}
+@RokkitRunner
+export class App {
+  constructor() {
+    Rokkit.useModule(RokkitModules.WEB)
+      .useDefaultConfiguration()
+      .run()
+  }
+}

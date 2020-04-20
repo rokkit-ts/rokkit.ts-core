@@ -1,4 +1,4 @@
-import { PackageScanner } from './packageScanner'
+import { PackageScanner } from './PackageScanner'
 import { readFileSync } from 'fs-extra'
 import * as path from 'path'
 

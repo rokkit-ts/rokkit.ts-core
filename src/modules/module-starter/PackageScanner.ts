@@ -14,18 +14,9 @@ export class PackageScanner {
   private readonly packageDependencies: PackageDependencies
 
   constructor(pathToUserPackageJson?: string) {
-    this.packageDependencies = PackageScanner.scanPackageJson(
+    this.packageDependencies = this.scanPackageJson(
       pathToUserPackageJson || './package.json'
     )
-  }
-
-  private static scanPackageJson(
-    pathToUserPackageJson: string
-  ): PackageDependencies {
-    const clearPath = path.resolve(pathToUserPackageJson)
-    const fileData = fs.readFileSync(clearPath, { encoding: 'utf8' })
-    const packageJsonData = JSON.parse(fileData)
-    return packageJsonData.dependencies ? packageJsonData.dependencies : {}
   }
 
   /**
@@ -36,5 +27,12 @@ export class PackageScanner {
    */
   public isPackageInstalled(packageName: string): boolean {
     return this.packageDependencies[packageName] !== undefined
+  }
+
+  private scanPackageJson(pathToUserPackageJson: string): PackageDependencies {
+    const clearPath = path.resolve(pathToUserPackageJson)
+    const fileData = fs.readFileSync(clearPath, { encoding: 'utf8' })
+    const packageJsonData = JSON.parse(fileData)
+    return packageJsonData.dependencies ? packageJsonData.dependencies : {}
   }
 }
