@@ -2,6 +2,7 @@ import { AbstractModule } from '@rokkit.ts/abstract-module'
 import { PackageScanner } from './PackageScanner'
 import { Module } from '../module-builder/ModuleBuilder'
 import path from 'path'
+import { LoggerFactory } from '@rokkit.ts/logger'
 
 /**
  * @class ModuleStarter
@@ -9,6 +10,7 @@ import path from 'path'
  * It checks the provided package.json of the user and than load all found rokkit.ts modules.
  */
 export class ModuleStarter {
+  private logger = LoggerFactory.create(ModuleStarter.name, true)
   public constructor(private readonly packageScanner: PackageScanner) {}
 
   /**
@@ -25,6 +27,9 @@ export class ModuleStarter {
     return new Promise(async resolve => {
       const modulesLoaded = await Promise.all(
         modules.map(rokkitModule => {
+          this.logger.info(
+            `Loading module with name: ${rokkitModule.moduleName}`
+          )
           if (this.packageScanner.isPackageInstalled(rokkitModule.moduleName)) {
             return this.loadModule(rokkitModule)
           } else {
@@ -53,11 +58,20 @@ export class ModuleStarter {
       try {
         const importedEsModule = await import(modulePath)
         if (importedEsModule) {
+          this.logger.info(
+            `Successfully loaded module with name: ${module.moduleName}`
+          )
           resolve(new importedEsModule[module.baseClass]())
         } else {
+          this.logger.error(
+            `Could not import module with name: ${module.moduleName}`
+          )
           resolve(undefined)
         }
       } catch (error) {
+        this.logger.error(
+          `Error when loading module with name: ${module.moduleName}: ${error.message}`
+        )
         resolve(undefined)
       }
     })

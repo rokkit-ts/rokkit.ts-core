@@ -6,14 +6,7 @@ import { LoggerFactory } from '@rokkit.ts/logger'
 
 class Starter {
   private modulesToUse = new Map<string, Module<any>>()
-  private readonly packageScanner: PackageScanner
-  private readonly moduleStarter: ModuleStarter
   private readonly starterLogger = LoggerFactory.create('RokkitStarter', true)
-
-  constructor() {
-    this.packageScanner = new PackageScanner('./package.json')
-    this.moduleStarter = new ModuleStarter(this.packageScanner)
-  }
 
   public useModule<T>(module: Module<T>): Starter {
     this.modulesToUse.set(module.moduleName, module)
@@ -21,9 +14,11 @@ class Starter {
   }
 
   public async run(): Promise<void> {
-    const timeStampStarted = performance.now()
-
     this.starterLogger.info('Starting Rokkit.ts')
+    const timeStampStarted = performance.now()
+    const packageScanner = new PackageScanner('./package.json')
+    const moduleStarter = new ModuleStarter(packageScanner)
+
     // execute user compoent scan
     this.starterLogger.info('Scanning user components')
     const componentsPaths = await ComponentScanner.importUserComponents()
@@ -42,14 +37,14 @@ class Starter {
 
     // load modules
     this.starterLogger.info('Loading rokkit modules')
-    const loadedModules = await this.moduleStarter.loadModules(
+    const loadedModules = await moduleStarter.loadModules(
       Array.from(this.modulesToUse.values())
     )
 
     // run modules
     this.starterLogger.info('Running rokkit modules')
     await Promise.all(
-      loadedModules.map(module => this.moduleStarter.runModule(module))
+      loadedModules.map(module => moduleStarter.runModule(module))
     )
 
     // started the framework :)
